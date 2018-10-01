@@ -4,9 +4,16 @@ from flask_restful import Resource, Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 
+DEPLOYMENT_ENVIRONMENT = 'local'
+
 app = Flask(__name__)
 api = Api(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+if DEPLOYMENT_ENVIRONMENT == 'docker':
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////data/container.db'
+elif DEPLOYMENT_ENVIRONMENT == 'local':
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
