@@ -4,7 +4,7 @@ from flask_restful import Resource, Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 
-DEPLOYMENT_ENVIRONMENT = 'local'
+DEPLOYMENT_ENVIRONMENT = 'docker'
 
 app = Flask(__name__)
 api = Api(app)
